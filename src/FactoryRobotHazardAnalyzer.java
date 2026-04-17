@@ -1,5 +1,4 @@
 import java.util.Scanner;
-// NEW → input
 
 public class FactoryRobotHazardAnalyzer {
 
@@ -8,9 +7,8 @@ public class FactoryRobotHazardAnalyzer {
         System.out.println("Factory Robot Hazard Analyzer");
 
         Scanner sc = new Scanner(System.in);
-        // create scanner
 
-        // UC2 → take inputs
+        // UC2 → input
         System.out.print("Enter Arm Precision (0.0 - 1.0): ");
         double armPrecision = sc.nextDouble();
 
@@ -18,16 +16,24 @@ public class FactoryRobotHazardAnalyzer {
         int workerDensity = sc.nextInt();
 
         sc.nextLine();
-        // clear buffer
 
         System.out.print("Enter Machinery State (Worn/Faulty/Critical): ");
         String machineryState = sc.nextLine();
 
-        // UC2 → echo inputs
-        System.out.println("\nYou Entered:");
-        System.out.println("Arm Precision: " + armPrecision);
-        System.out.println("Worker Density: " + workerDensity);
-        System.out.println("Machinery State: " + machineryState);
+        // UC3 → calculation
+
+        double machineFactor = 0;
+
+        if (machineryState.equals("Worn"))
+            machineFactor = 1.3;
+        else if (machineryState.equals("Faulty"))
+            machineFactor = 2.0;
+        else if (machineryState.equals("Critical"))
+            machineFactor = 3.0;
+
+        double hazardRisk = ((1 - armPrecision) * 15) + (workerDensity * machineFactor);
+
+        System.out.println("Robot Hazard Risk Score: " + hazardRisk);
 
         sc.close();
     }
