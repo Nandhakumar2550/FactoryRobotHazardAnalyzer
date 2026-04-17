@@ -10,6 +10,7 @@ public class FactoryRobotHazardAnalyzer {
 
         try {
 
+            // input
             System.out.print("Enter Arm Precision (0.0 - 1.0): ");
             double armPrecision = sc.nextDouble();
 
@@ -21,14 +22,18 @@ public class FactoryRobotHazardAnalyzer {
             System.out.print("Enter Machinery State (Worn/Faulty/Critical): ");
             String machineryState = sc.nextLine();
 
+            // logic
             RobotHazardAuditor auditor = new RobotHazardAuditor();
 
             double risk = auditor.calculateHazardRisk(
                     armPrecision, workerDensity, machineryState);
 
+            // output
             System.out.println("Robot Hazard Risk Score: " + risk);
 
         } catch (RobotSafetyException e) {
+
+            // exception handling
             System.out.println(e.getMessage());
         }
 
