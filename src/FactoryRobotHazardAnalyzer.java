@@ -8,24 +8,31 @@ public class FactoryRobotHazardAnalyzer {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter Arm Precision (0.0 - 1.0): ");
-        double armPrecision = sc.nextDouble();
+        try {
+            // input
+            System.out.print("Enter Arm Precision (0.0 - 1.0): ");
+            double armPrecision = sc.nextDouble();
 
-        System.out.print("Enter Worker Density (1 - 20): ");
-        int workerDensity = sc.nextInt();
+            System.out.print("Enter Worker Density (1 - 20): ");
+            int workerDensity = sc.nextInt();
 
-        sc.nextLine();
+            sc.nextLine();
 
-        System.out.print("Enter Machinery State (Worn/Faulty/Critical): ");
-        String machineryState = sc.nextLine();
+            System.out.print("Enter Machinery State (Worn/Faulty/Critical): ");
+            String machineryState = sc.nextLine();
 
-        // UC5 → use separate class
-        RobotHazardAuditor auditor = new RobotHazardAuditor();
+            // call method
+            RobotHazardAuditor auditor = new RobotHazardAuditor();
 
-        double risk = auditor.calculateHazardRisk(armPrecision, workerDensity, machineryState);
+            double risk = auditor.calculateHazardRisk(
+                    armPrecision, workerDensity, machineryState);
 
-        if (risk != -1)
             System.out.println("Robot Hazard Risk Score: " + risk);
+
+        } catch (RobotSafetyException e) {
+            // UC6 → handle exception
+            System.out.println(e.getMessage());
+        }
 
         sc.close();
     }
